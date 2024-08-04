@@ -327,7 +327,7 @@ func (p *probe) ListProbes(ctx context.Context, probeNames []string, infrastruct
 	matchIdentifierStage := bson.D{
 		{
 			Key: "$match", Value: bson.D{
-				{"project_id", projectID},
+				{"project_id", bson.D{{"$eq", projectID}}},
 				{"is_removed", false},
 			},
 		},
@@ -386,7 +386,7 @@ func GetProbeExecutionHistoryInExperimentRuns(projectID string, probeName string
 	matchIdentifierStage := bson.D{
 		{
 			"$match", bson.D{
-				{"project_id", projectID},
+				{"project_id", bson.D{{"$eq", projectID}}},
 				{"probes.probe_names", probeName},
 			},
 		},

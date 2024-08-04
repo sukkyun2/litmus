@@ -315,8 +315,8 @@ func (in *infraService) GetInfra(ctx context.Context, projectID string, infraID 
 	// Match with identifiers and infra ID
 	matchIdentifierStage := bson.D{
 		{"$match", bson.D{
-			{"infra_id", infraID},
-			{"project_id", projectID},
+			{"infra_id", bson.D{{"$eq", infraID}}},
+			{"project_id", bson.D{{"$eq", projectID}}},
 			{"is_removed", false},
 		}},
 	}
@@ -471,7 +471,7 @@ func (in *infraService) ListInfras(projectID string, request *model.ListInfraReq
 	// Match with identifiers
 	matchIdentifierStage := bson.D{
 		{"$match", bson.D{
-			{"project_id", projectID},
+			{"project_id", bson.D{{"$eq", projectID}}},
 			{"is_removed", false},
 		}},
 	}
@@ -808,7 +808,7 @@ func (in *infraService) GetInfraStats(ctx context.Context, projectID string) (*m
 	// Match with identifiers
 	matchIdentifierStage := bson.D{
 		{"$match", bson.D{
-			{"project_id", projectID},
+			{"project_id", bson.D{{"$eq", projectID}}},
 			{"is_removed", false},
 		}},
 	}

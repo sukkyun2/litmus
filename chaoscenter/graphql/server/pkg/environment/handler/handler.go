@@ -208,7 +208,7 @@ func (e *EnvironmentService) ListEnvironments(projectID string, request *model.L
 	// Match with identifiers
 	matchIdentifierStage := bson.D{
 		{"$match", bson.D{
-			{"project_id", projectID},
+			{"project_id", bson.D{{"$eq", projectID}}},
 			{"is_removed", false},
 		}},
 	}
